@@ -12,6 +12,7 @@ export default function Index() {
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
       <Link href={"/todo"}>Todo Index</Link>
+      <Link href={"/todo/1/edit"}>Todo Edit</Link>
     </View>
   );
 }
