@@ -1,5 +1,5 @@
-import { Link, Stack } from "expo-router";
-import { Image, StyleSheet, View } from "react-native";
+import { Stack } from "expo-router";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,7 @@ function LogoTitle() {
         style={styles.image}
         source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
       />
-      <Link href={"/todo"}>Todo Index</Link>
+      <Text>Todo Index</Text>
     </View>
   );
 }
