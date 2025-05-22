@@ -2,6 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
+const localTodos: Todo[] = [
+  { id: 1, title: "買い物に行く", completed: false },
+  { id: 2, title: "レポートを書く", completed: true },
+  { id: 3, title: "運動する", completed: false },
+  { id: 4, title: "本を読む", completed: false },
+];
+
 type Todo = {
   id: number;
   title: string;
@@ -11,6 +18,10 @@ type Todo = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  contentContainer: {
     alignItems: "center",
     justifyContent: "center",
   },
@@ -49,13 +60,14 @@ const styles = StyleSheet.create({
 });
 
 const fetchTodos = async () => {
-  const res = await fetch("http://example.com/api/");
+  // const res = await fetch("http://example.com/api/");
 
-  if (!res.ok) {
-    throw new Error("api response was not ok");
-  }
+  // if (!res.ok) {
+  //   throw new Error("api response was not ok");
+  // }
 
-  return res.json();
+  // return res.json();
+  return localTodos;
 };
 
 function LogoTitle() {
@@ -79,6 +91,9 @@ const TodoIndex = () => {
     queryKey: ["todos"],
     queryFn: fetchTodos,
   });
+
+  console.log("todos:", todos);
+  console.log("isLoading:", isLoading);
 
   const renderItem = ({ item }: { item: Todo }) => (
     <View style={styles.todoItem}>
@@ -111,7 +126,7 @@ const TodoIndex = () => {
           data={todos}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
         />
       )}
     </>
