@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { v4 as uuidv4 } from "uuid";
 
 const styles = StyleSheet.create({
   container: {
@@ -71,17 +72,12 @@ const styles = StyleSheet.create({
 });
 
 type TodoItem = {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
 };
 
-const initialTodos: TodoItem[] = [
-  { id: 1, title: "買い物に行く", completed: false },
-  { id: 2, title: "レポートを書く", completed: true },
-  { id: 3, title: "運動する", completed: false },
-  { id: 4, title: "本を読む", completed: false },
-];
+const initialTodos: TodoItem[] = [];
 
 const STORAGE_KEY = "@todos";
 
@@ -153,11 +149,22 @@ const TodoIndex = () => {
         ...currentTodos,
         {
           ...newTodo,
-          id: Math.max(...currentTodos.map((todo) => todo.id)) + 1,
+          id: uuidv4(),
         },
       ];
       await saveTodos(newTodos);
       return newTodos;
+    },
+  });
+
+  const deleteTodoMutation = useMutation({
+    mutationFn: async (deleteTodo: TodoItem) => {
+      const currentTodos = await fetchTodos();
+      const deletedTodos = currentTodos.filter(
+        (todo) => todo.id !== deleteTodo.id
+      );
+      await saveTodos(deletedTodos);
+      return deletedTodos;
     },
   });
 
@@ -178,11 +185,16 @@ const TodoIndex = () => {
     }
   };
 
+  const handleDeleteTodo = (todo: TodoItem) => {
+    deleteTodoMutation.mutate(todo);
+  };
+
   const renderItem = ({ item }: { item: TodoItem }) => (
     <TouchableOpacity style={styles.todoItem} onPress={() => toggleTodo(item)}>
       <Text style={[styles.todoText, item.completed && styles.completedText]}>
         {item.title}
       </Text>
+      <Button title="Delete" onPress={() => handleDeleteTodo(item)} />
     </TouchableOpacity>
   );
 
@@ -196,7 +208,6 @@ const TodoIndex = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
-
           headerTitle: () => <LogoTitle />,
         }}
       />
