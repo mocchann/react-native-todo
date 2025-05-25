@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type TodoItem = {
+export type TodoItem = {
   id: string;
   title: string;
   completed: boolean;
@@ -79,7 +79,7 @@ type TodoItem = {
 
 const initialTodos: TodoItem[] = [];
 
-const STORAGE_KEY = "@todos";
+export const STORAGE_KEY = "@todos";
 
 const fetchTodos = async (): Promise<TodoItem[]> => {
   try {
