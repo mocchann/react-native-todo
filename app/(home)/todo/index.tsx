@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Button,
@@ -117,6 +117,7 @@ function LogoTitle() {
 
 const TodoIndex = () => {
   const [newTodoTitle, setNewTodoTitle] = useState<string>("");
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const {
@@ -195,11 +196,16 @@ const TodoIndex = () => {
     deleteTodoMutation.mutate(todo);
   };
 
+  const handleEditTodo = (todo: TodoItem) => {
+    router.push(`/todo/${todo.id}/edit`);
+  };
+
   const renderItem = ({ item }: { item: TodoItem }) => (
     <TouchableOpacity style={styles.todoItem} onPress={() => toggleTodo(item)}>
       <Text style={[styles.todoText, item.completed && styles.completedText]}>
         {item.title}
       </Text>
+      <Button title="Edit" onPress={() => handleEditTodo(item)} />
       <Button title="Delete" onPress={() => handleDeleteTodo(item)} />
     </TouchableOpacity>
   );
