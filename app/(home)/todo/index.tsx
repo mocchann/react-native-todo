@@ -155,6 +155,9 @@ const TodoIndex = () => {
       await saveTodos(newTodos);
       return newTodos;
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
   });
 
   const deleteTodoMutation = useMutation({
@@ -165,6 +168,9 @@ const TodoIndex = () => {
       );
       await saveTodos(deletedTodos);
       return deletedTodos;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
