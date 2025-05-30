@@ -1,10 +1,10 @@
+import { STORAGE_KEY, TodoItem } from "@/app/(tabs)/todo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Image } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { STORAGE_KEY, TodoItem } from "../..";
 
 const styles = StyleSheet.create({
   container: {
