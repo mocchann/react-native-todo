@@ -8,6 +8,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="todo/[id]/edit" options={{ headerShown: true }} />
       </Stack>
     </QueryClientProvider>
   );
