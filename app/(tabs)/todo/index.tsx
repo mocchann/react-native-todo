@@ -62,12 +62,24 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
   },
+  todoContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
   todoText: {
     fontSize: 16,
+    flex: 1,
+    marginRight: 16,
   },
   completedText: {
     textDecorationLine: "line-through",
     color: "#888",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    gap: 8,
   },
 });
 
@@ -114,6 +126,28 @@ function LogoTitle() {
     </View>
   );
 }
+
+const TodoButton = ({
+  title,
+  onPress,
+  color,
+}: {
+  title: string;
+  onPress: () => void;
+  color: string;
+}) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={{
+      backgroundColor: color,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 4,
+    }}
+  >
+    <Text style={{ color: "#fff", fontSize: 14 }}>{title}</Text>
+  </TouchableOpacity>
+);
 
 const TodoIndex = () => {
   const [newTodoTitle, setNewTodoTitle] = useState<string>("");
@@ -202,11 +236,23 @@ const TodoIndex = () => {
 
   const renderItem = ({ item }: { item: TodoItem }) => (
     <TouchableOpacity style={styles.todoItem} onPress={() => toggleTodo(item)}>
-      <Text style={[styles.todoText, item.completed && styles.completedText]}>
-        {item.title}
-      </Text>
-      <Button title="Edit" onPress={() => handleEditTodo(item)} />
-      <Button title="Delete" onPress={() => handleDeleteTodo(item)} />
+      <View style={styles.todoContent}>
+        <Text style={[styles.todoText, item.completed && styles.completedText]}>
+          {item.title}
+        </Text>
+        <View style={styles.buttonContainer}>
+          <TodoButton
+            title="Edit"
+            onPress={() => handleEditTodo(item)}
+            color="#f4511e"
+          />
+          <TodoButton
+            title="Delete"
+            onPress={() => handleDeleteTodo(item)}
+            color="#666"
+          />
+        </View>
+      </View>
     </TouchableOpacity>
   );
 
