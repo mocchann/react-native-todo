@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
+    width: "100%",
   },
   todoContent: {
     flexDirection: "row",
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     gap: 8,
+    width: 160,
   },
 });
 
@@ -237,16 +239,20 @@ const TodoIndex = () => {
   const renderItem = ({ item }: { item: TodoItem }) => (
     <TouchableOpacity style={styles.todoItem} onPress={() => toggleTodo(item)}>
       <View style={styles.todoContent}>
-        <Text style={[styles.todoText, item.completed && styles.completedText]}>
+        <Text
+          style={[styles.todoText, item.completed && styles.completedText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {item.title}
         </Text>
         <View style={styles.buttonContainer}>
-          <TodoButton
+          <Button
             title="Edit"
             onPress={() => handleEditTodo(item)}
             color="#f4511e"
           />
-          <TodoButton
+          <Button
             title="Delete"
             onPress={() => handleDeleteTodo(item)}
             color="#666"
