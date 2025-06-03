@@ -266,7 +266,7 @@ const TodoIndex = () => {
     <>
       <Stack.Screen
         options={{
-          title: "My home",
+          title: "Home",
           headerStyle: { backgroundColor: "#f4511e" },
           headerTintColor: "#fff",
           headerTitleStyle: {
