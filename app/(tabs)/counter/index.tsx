@@ -39,7 +39,7 @@ export default function Counter() {
             color="#f4511e"
           />
           <Button
-            title="減らす"
+            title="Decrement"
             onPress={() => setCount(count - 1)}
             color="#666"
           />
