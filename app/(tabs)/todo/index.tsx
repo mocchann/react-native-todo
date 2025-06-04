@@ -61,13 +61,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
+    width: "100%",
+  },
+  todoContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
   },
   todoText: {
     fontSize: 16,
+    flex: 1,
+    marginRight: 16,
   },
   completedText: {
     textDecorationLine: "line-through",
     color: "#888",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    gap: 8,
+    width: 160,
   },
 });
 
@@ -114,6 +128,28 @@ function LogoTitle() {
     </View>
   );
 }
+
+const TodoButton = ({
+  title,
+  onPress,
+  color,
+}: {
+  title: string;
+  onPress: () => void;
+  color: string;
+}) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={{
+      backgroundColor: color,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 4,
+    }}
+  >
+    <Text style={{ color: "#fff", fontSize: 14 }}>{title}</Text>
+  </TouchableOpacity>
+);
 
 const TodoIndex = () => {
   const [newTodoTitle, setNewTodoTitle] = useState<string>("");
@@ -202,11 +238,27 @@ const TodoIndex = () => {
 
   const renderItem = ({ item }: { item: TodoItem }) => (
     <TouchableOpacity style={styles.todoItem} onPress={() => toggleTodo(item)}>
-      <Text style={[styles.todoText, item.completed && styles.completedText]}>
-        {item.title}
-      </Text>
-      <Button title="Edit" onPress={() => handleEditTodo(item)} />
-      <Button title="Delete" onPress={() => handleDeleteTodo(item)} />
+      <View style={styles.todoContent}>
+        <Text
+          style={[styles.todoText, item.completed && styles.completedText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {item.title}
+        </Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Edit"
+            onPress={() => handleEditTodo(item)}
+            color="#f4511e"
+          />
+          <Button
+            title="Delete"
+            onPress={() => handleDeleteTodo(item)}
+            color="#666"
+          />
+        </View>
+      </View>
     </TouchableOpacity>
   );
 
@@ -214,7 +266,7 @@ const TodoIndex = () => {
     <>
       <Stack.Screen
         options={{
-          title: "My home",
+          title: "Home",
           headerStyle: { backgroundColor: "#f4511e" },
           headerTintColor: "#fff",
           headerTitleStyle: {
