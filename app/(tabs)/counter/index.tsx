@@ -27,7 +27,7 @@ export default function Counter() {
     <>
       <Stack.Screen
         options={{
-          title: "カウンター",
+          title: "Counter",
         }}
       />
       <View style={styles.container}>
