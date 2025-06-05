@@ -34,7 +34,7 @@ export default function Counter() {
         <Text style={styles.counter}>{count}</Text>
         <View style={styles.buttonContainer}>
           <Button
-            title="増やす"
+            title="Increment"
             onPress={() => setCount(count + 1)}
             color="#f4511e"
           />
